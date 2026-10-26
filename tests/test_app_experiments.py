@@ -76,7 +76,7 @@ def test_the_variance_button_shows_chart_table_and_verdict():
     at.button(key="btn_var").click().run()
     assert not at.exception, [str(e) for e in at.exception]
     text = _texts(at)
-    assert "| φ | T | T · Var(r) | Formel | effektive Stichprobengröße |" in text and "die Formel gilt, wenn T deutlich größer ist als die Gedächtnislänge" in text and "| 0.99 | 104 |" in text
+    assert "| φ | T | T · Var(r) | Formel | effektive Stichprobengröße |" in text and "die Formel gilt erst, wenn T deutlich größer ist als die Gedächtnislänge" in text and "| 0.99 | 104 |" in text
 
 
 def test_the_experiment_sections_show_their_verdicts():

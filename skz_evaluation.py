@@ -251,5 +251,5 @@ def verdict_variance(rows: list[dict]) -> tuple[str, str]:
     """E5: T·Var(r) gegen die Formel bei der kleinsten und der größten Stichprobe."""
     rows = sorted(rows, key=lambda r: (r["phi"], r["T"]))
     worst = max(rows, key=lambda r: r["formula"] / r["t_var"])
-    return "info", (f"Bei φ = {worst['phi']:g} und T = {worst['T']} ist T · Var(r) = **{worst['t_var']:.2f}**, die Formel sagt {worst['formula']:.2f}: die Formel gilt, wenn T deutlich größer ist als die Gedächtnislänge 1/(1 − φ) = "
+    return "info", (f"Bei φ = {worst['phi']:g} und T = {worst['T']} ist T · Var(r) = **{worst['t_var']:.2f}**, die Formel sagt {worst['formula']:.2f}: die Formel gilt erst, wenn T deutlich größer ist als die Gedächtnislänge 1/(1 − φ) = "
                     f"{1 / (1 - worst['phi']):.0f}; die effektive Stichprobengröße wäre dort {worst['n_eff']:.1f}.")

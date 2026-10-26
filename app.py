@@ -80,12 +80,12 @@ und r misst genau das. Der naive Test rechnet, als wären die Wochen unabhängig
 | **Irrfahrt** | unbegrenzt (φ = 1) | r schrumpft **nicht** mit der Länge der Reihe |
 | **Trend plus Rauschen** | gemeinsame Richtung | r wird mit T immer größer |
 
-| Verfahren | Idee | hilft bei | schadet bei |
+| Verfahren | Idee | hilft bei | versagt bei |
 |---|---|---|---|
 | **naiver Test** | t-Test von r mit T − 2 Freiheitsgraden | weißes Rauschen | alles mit Gedächtnis oder Trend |
 | **Differenzieren** | Korrelation der Wochenänderungen | Irrfahrt, AR(1) | weißes Rauschen, Trend (Überdifferenzieren) |
 | **Trend weg** | Trendgerade abziehen | Trend plus Rauschen | Irrfahrt, AR(1) |
-| **n_eff** | weniger „freie“ Wochen aus den Autokorrelationen | Rauschen, AR(1), Irrfahrt | Trend |
+| **n_eff** | weniger „freie“ Wochen aus den Autokorrelationen | Rauschen, AR(1), Irrfahrt | Trend; bei echtem Zusammenhang in den Zufallsstößen zu vorsichtig |
 | **Verschiebung** | y zyklisch verschieben, r jeweils neu | AR(1) bis φ = 0,9 | φ = 0,99, Irrfahrt, Trend |
 | **Warnregel R² > DW** | Residuen der Regression stark autokorreliert | Irrfahrt | Trend (schweigt) |
         """
@@ -250,7 +250,7 @@ st.markdown(
 | **Die vier Prozesse stehen für die Wirklichkeit** | es sind Beispiele; Saison, Brüche und sehr lange Gedächtnisse zeigt die Demo nicht | – |
 | **Ein bestandener Test beweist einen Zusammenhang** | bei Gedächtnis oder Trend ist „signifikant“ oft nur gemeinsames Driften (Experiment 1) | Gegenmittel und Domänenwissen |
 | **Differenzieren schadet nie** | bei weißem Rauschen und bei Trend plus Rauschen hebt es den Fehlalarm (Experiment 3) | Prozess vorher prüfen |
-| **n_eff genügt** | die geschätzte Korrektur versagt beim Trend und ist bei echtem Zusammenhang zu vorsichtig (Experimente 3 und 4) | – |
+| **n_eff genügt** | die geschätzte Korrektur versagt beim Trend und ist bei Irrfahrten mit korrelierten Zuwächsen zu vorsichtig (Experimente 3 und 4); bei y = x + Rauschen findet sie den Zusammenhang | – |
 | **Das Verschiebungstest ist verteilungsfrei und deshalb sicher** | es hält nur bei stationären Reihen mit kurzem Gedächtnis (Experiment 3) | – |
 | **Die Warnregel erkennt jede Scheinregression** | sie schweigt beim Trend und warnt bei kurzen Reihen selten (Experiment 3) | – |
 | **Echter Gleichlauf** | ob zwei Irrfahrten *gemeinsam* driften (Kointegration), prüft kein Verfahren hier | Stück zu Kointegration und gerichteter Abhängigkeit |
