@@ -190,3 +190,21 @@ def test_claim_grid_build_time(grid):
 def test_claim_stream_is_reproducible():
     X, Y = K.make_pair("walk", 3, 20, S.VRng(1))
     assert X[0, 0] == pytest.approx(K.make_pair("walk", 3, 20, S.VRng(1))[0][0, 0])
+
+
+def test_claim_the_two_measurements_of_the_walk_cell_use_different_seeds(grid):
+    """README: Differenzieren 4,4 % (Experiment 3) und 5,2 % (Experiment 4) sind zwei unabhängige Messungen derselben Einstellung (Irrfahrt, T = 104, ρ = 0) mit verschiedenen Seeds; Abweichung 0,8 Punkte."""
+    import math
+    fa = _fa(grid, "walk", 104)
+    rel = ev.find(grid["rel"], scenario="walk", rho=0.0, T=104)
+    assert fa["runs"] == rel["runs"] == 4000
+    assert all(ev.cell_seed("fa", "walk", 104, 0.0, s) != ev.cell_seed("rel", "walk", 104, 0.0, s) for s in C.GRID_SEEDS)
+    assert (_p(fa["rate"]["diff"]), _p(rel["rate"]["diff"])) == ("4,4", "5,2")
+    assert round(100 * (rel["rate"]["diff"] - fa["rate"]["diff"]), 1) == 0.8
+    se = math.sqrt(0.05 * 0.95 / 4000)
+    assert 100 * se == pytest.approx(0.35, abs=0.01)
+    assert round(100 * math.sqrt(2) * se, 1) == 0.5
+    # gleiche Einstellung, andere Seeds: die übrigen Verfahren weichen ebenfalls ab (naiv und Verschiebung stimmen nur zufällig auf eine Stelle überein)
+    assert (_p(fa["rate"]["naiv"]), _p(rel["rate"]["naiv"])) == ("76,1", "76,1") and (_p(fa["rate"]["neff"]), _p(rel["rate"]["neff"])) == ("4,6", "5,0")
+    assert "zwei unabhängige Messungen derselben Einstellung (Irrfahrt, T = 104, ohne Zusammenhang) mit verschiedenen Seeds" in README
+    assert "die Abweichung von 0,8 Punkten ist Messrauschen (Standardfehler etwa 0,35 Punkte je Zelle, etwa 0,5 für die Differenz)" in README

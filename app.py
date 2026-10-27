@@ -62,10 +62,23 @@ st.markdown(
 **Auftragseingang** an Standort B (y). Sie sind **unabhängig simuliert**, die Wahrheit ist bekannt: es gibt keinen Zusammenhang. Die ersten drei Stücke nahmen unabhängige Beobachtungen an. Hier hängt jede
 Woche an der vorigen, und der Test auf „r = 0“ bemerkt das nicht. **Wie oft findet er trotzdem einen Zusammenhang, und welches Gegenmittel hilft wann, zu welchem Preis?**
 
-Weiter unten: fünf Experimente (**🔬**), **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**. Das Intervall für einen **Mittelwert** bei Autokorrelation steht in `output-analysis-demo`,
+Wer die Idee zuerst ohne Fachbegriffe verstehen will, öffnet **💬 In einfachen Worten**. Weiter unten: fünf Experimente (**🔬**), **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**. Das Intervall für einen **Mittelwert** bei Autokorrelation steht in `output-analysis-demo`,
 Prognosen mit Differenzen in `arima-demo`, der echte Gleichlauf (Kointegration) im Stück dazu, Ursachen in der Linie *Kausale Diagramme und Adjustierung*.
 """
 )
+
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/scheinkorrelation-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Die Demo vergleicht zwei **Wochenreihen**, zum Beispiel den Bestand an einem Standort und den Auftragseingang an einem anderen. Beide sind **unabhängig voneinander simuliert**: Es gibt keinen Zusammenhang, und das weiß die Demo. Hängt aber jede Woche an der vorigen, wandern die Reihen und laufen rein zufällig eine Weile in dieselbe Richtung.
+
+Der übliche Test rechnet, als wäre jede Woche eine neue, unabhängige Beobachtung, und meldet dann zu oft einen Zusammenhang. Die Demo zählt, **wie oft** das passiert, und prüft vier Gegenmittel: die Änderungen vergleichen, einen Trend abziehen, weniger Wochen zählen und die eine Reihe gegen die andere verschieben. Dazu kommt eine Warnregel. **Jedes Mittel hilft bei einer Art von Reihe und versagt bei einer anderen.** Am Ende sehen Sie auch, wie sich ein echter Zusammenhang davon unterscheidet.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/scheinkorrelation-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
 
 with st.expander("So entsteht die Scheinkorrelation", expanded=True):
     st.markdown(
@@ -83,7 +96,7 @@ und r misst genau das. Der naive Test rechnet, als wären die Wochen unabhängig
 | Verfahren | Idee | hilft bei | versagt bei |
 |---|---|---|---|
 | **naiver Test** | t-Test von r mit T − 2 Freiheitsgraden | weißes Rauschen | alles mit Gedächtnis oder Trend |
-| **Differenzieren** | Korrelation der Wochenänderungen | Irrfahrt, AR(1) | weißes Rauschen, Trend (Überdifferenzieren) |
+| **Differenzieren** | Korrelation der Wochenänderungen | Irrfahrt, AR(1) ab etwa 0,9 | weißes Rauschen, Trend (Überdifferenzieren) |
 | **Trend weg** | Trendgerade abziehen | Trend plus Rauschen | Irrfahrt, AR(1) |
 | **n_eff** | weniger „freie“ Wochen aus den Autokorrelationen | Rauschen, AR(1), Irrfahrt | Trend; bei echtem Zusammenhang in den Zufallsstößen zu vorsichtig |
 | **Verschiebung** | y zyklisch verschieben, r jeweils neu | AR(1) bis φ = 0,9 | φ = 0,99, Irrfahrt, Trend |
@@ -263,18 +276,29 @@ st.caption("Alle Reihen sind simuliert; die Prozesse sind Modellwahlen, kein Bef
 st.markdown("---")
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/scheinkorrelation-erklaert.json, nicht von Hand ändern)
     st.markdown(
         r"""
-**Lesehilfe.** Gegeben sind zwei Reihen $x_1,\dots,x_T$ und $y_1,\dots,y_T$; gefragt ist, ob sie unabhängig sind.
+**Lesehilfe.** Gegeben sind zwei Wochenreihen $x_1,\dots,x_T$ und $y_1,\dots,y_T$. Gesucht ist, wie oft ein Test auf Korrelation sie als abhängig meldet, obwohl sie unabhängig sind, und welche Korrekturen das verhindern.
 
 | Symbol | Bedeutung |
 |---|---|
+| $T$ | Zahl der Wochen je Reihe |
 | $r$ | Pearson-Korrelation der beiden Reihen |
 | $\varepsilon_t$ | standardnormale Zufallsstöße (Innovationen) |
-| $\varphi$ | Gedächtnis des AR(1) |
+| $\varphi$ | Gedächtnis des AR(1): wie stark die Vorwoche in die nächste Woche eingeht |
+| $b$ | Steigung des Trends je Woche |
 | $\rho$ | Korrelation der Innovationen beider Reihen (0 = unabhängig) |
-| $r_{1,x}, r_{1,y}$ | Autokorrelation zum Lag 1 der beiden Reihen |
+| $r_{1,x},\ r_{1,y}$ | Autokorrelation zum Lag 1 der beiden Reihen |
+| $T_{\mathrm{eff}}$ | effektive Stichprobengröße: so viele unabhängige Wochen wäre die Reihe wert |
+| $u_t$ | Residuen der Regression $y \sim x$ |
 
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/scheinkorrelation-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
+    st.markdown(
+        r"""
 **Prozesse.**
 
 $$ x_t = \varepsilon_t \ \ (\text{weißes Rauschen}), \qquad x_t = \varphi\, x_{t-1} + \varepsilon_t \ \ (\text{AR}(1)), \qquad x_t = x_{t-1} + \varepsilon_t \ \ (\text{Irrfahrt}), \qquad x_t = b\,t + \varepsilon_t \ \ (\text{Trend}) $$
