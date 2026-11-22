@@ -97,7 +97,7 @@ def n_eff_rows(X, Y) -> np.ndarray:
 
 
 def shift_p_rows(X, Y) -> np.ndarray:
-    """Zirkuläres Verschiebungstest: alle T Verschiebungen von y gegen x (die Identität ist dabei); p = #{|r_s| ≥ |r₀|} / T. Über FFT in O(T log T) je Paar."""
+    """Zirkulärer Verschiebungstest: alle T Verschiebungen von y gegen x (die Identität ist dabei); p = #{|r_s| ≥ |r₀|} / T. Über FFT in O(T log T) je Paar."""
     X = np.asarray(X, dtype=float)
     Y = np.asarray(Y, dtype=float)
     T = X.shape[1]

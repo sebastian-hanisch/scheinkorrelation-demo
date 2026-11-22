@@ -33,7 +33,7 @@ METHOD_LONG = {
     "diff": "Test auf die Korrelation der Differenzen",
     "trend": "Test nach Abzug der Trendgeraden",
     "neff": "t-Test mit effektiver Stichprobengröße",
-    "shift": "zirkuläres Verschiebungstest",
+    "shift": "zirkulärer Verschiebungstest",
 }
 WARNING_RULE = "dw"        # Granger–Newbold-Regel: R² > Durbin–Watson (keine Testentscheidung, ein Warnsignal)
 
@@ -84,7 +84,7 @@ PRESETS = {
 PRESET_HELP = {
     "Standardfall (Voreinstellung)": "Zwei unabhängige Irrfahrten, 104 Wochen: der naive Test schlägt in der Messreihe in 76,1 % der Läufe an, Differenzieren in 4,4 % und die n_eff-Korrektur in 4,6 %.",
     "Weißes Rauschen (Kontrolle)": "Weißes Rauschen, 104 Wochen: der naive Test hält seine 5 % (4,8 % der Läufe), Differenzieren hebt den Fehlalarm auf 11,3 %: Überdifferenzieren ist kein Gratis-Gegenmittel.",
-    "AR(1) mit φ = 0,9": "AR(1) mit φ = 0,9, 104 Wochen: der naive Test schlägt in 50,4 % der Läufe an, Differenzieren in 5,1 %, n_eff in 4,7 %, das Verschiebungstest in 5,5 %.",
+    "AR(1) mit φ = 0,9": "AR(1) mit φ = 0,9, 104 Wochen: der naive Test schlägt in 50,4 % der Läufe an, Differenzieren in 5,1 %, n_eff in 4,7 %, der Verschiebungstest in 5,5 %.",
     "Trend und Rauschen": "Trend plus Rauschen, 104 Wochen: der naive Test schlägt in 100,0 % der Läufe an, n_eff ebenfalls in 100,0 %, nach Abzug der Trendgeraden sind es 5,0 %.",
     "Echter Zusammenhang (Irrfahrten, ρ = 0,3)": "Zwei Irrfahrten mit korrelierten Zuwächsen (ρ = 0,3), 104 Wochen: der naive Test schlägt in 79,4 % der Läufe an (ohne Zusammenhang 76,1 %), Differenzieren in 88,2 %, n_eff nur in 8,6 %.",
     "Überdifferenziert (weißes Rauschen, 260 Wochen)": "Weißes Rauschen, 260 Wochen: der naive Test schlägt in 4,9 % der Läufe an, nach dem Differenzieren in 11,8 %.",

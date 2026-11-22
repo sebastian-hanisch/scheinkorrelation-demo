@@ -264,7 +264,7 @@ st.markdown(
 | **Ein bestandener Test beweist einen Zusammenhang** | bei Gedächtnis oder Trend ist „signifikant“ oft nur gemeinsames Driften (Experiment 1) | Gegenmittel und Domänenwissen |
 | **Differenzieren schadet nie** | bei weißem Rauschen und bei Trend plus Rauschen hebt es den Fehlalarm (Experiment 3) | Prozess vorher prüfen |
 | **n_eff genügt** | die geschätzte Korrektur versagt beim Trend und ist bei Irrfahrten mit korrelierten Zuwächsen zu vorsichtig (Experimente 3 und 4); bei y = x + Rauschen findet sie den Zusammenhang | – |
-| **Das Verschiebungstest ist verteilungsfrei und deshalb sicher** | es hält nur bei stationären Reihen mit kurzem Gedächtnis (Experiment 3) | – |
+| **Der Verschiebungstest ist verteilungsfrei und deshalb sicher** | es hält nur bei stationären Reihen mit kurzem Gedächtnis (Experiment 3) | – |
 | **Die Warnregel erkennt jede Scheinregression** | sie schweigt beim Trend und warnt bei kurzen Reihen selten (Experiment 3) | – |
 | **Echter Gleichlauf** | ob zwei Irrfahrten *gemeinsam* driften (Kointegration), prüft kein Verfahren hier | Stück zu Kointegration und gerichteter Abhängigkeit |
 | **Beobachtungen sind unabhängig** | das ist die Annahme, die diese Demo verletzt | – |
@@ -319,7 +319,7 @@ $$ T_{\mathrm{eff}} = T\,\frac{1 - r_{1,x}\,r_{1,y}}{1 + r_{1,x}\,r_{1,y}} $$
 
 $$ \Delta x_t = x_t - x_{t-1}, \qquad \tilde x_t = x_t - \hat a - \hat b\, t \quad (\text{Residuen der Regression auf die Zeit}) $$
 
-**Zirkuläres Verschiebungstest.** Mit der um $s$ Wochen verschobenen Reihe $y^{(s)}_t = y_{(t+s) \bmod T}$:
+**Zirkulärer Verschiebungstest.** Mit der um $s$ Wochen verschobenen Reihe $y^{(s)}_t = y_{(t+s) \bmod T}$:
 
 $$ p = \frac{1}{T}\,\#\bigl\{ s \in \{0,\dots,T-1\} : \lvert r(x, y^{(s)})\rvert \ge \lvert r(x,y)\rvert \bigr\} $$
 
